@@ -21,10 +21,9 @@ x::{ ;spin
 	while getkeystate("x","P") {
 		loop 50 {
 			MouseMove(A_Index,A_ScreenHeight / 2)
-			Sleep 30
+			Sleep 20
 		}
 	}
-	MouseClick "left"
 	} else SendText("x ")
 }
 r:: { ;spin and autoclick
@@ -106,6 +105,7 @@ c:: { ;fling
 	} else SendText("c ")
 }
 \:: { ;EXIT MACRO
+	MsgBox("EXITED MACRO!")
 	ExitApp
 }
 tutorial() {
