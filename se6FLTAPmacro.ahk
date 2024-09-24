@@ -1,26 +1,29 @@
 global toggle := 0
 A_MaxHotkeysPerInterval := 1000000
+DtoR(x) { ;degrees to radians 
+	return x * (3.14/180)
+}
 q::{ ;smash
 	global toggle
 	if(toggle = 0 && (WinActive("Roblox") || WinActive("RobloxPlayerBeta") || WinActive("Roblox.exe"))) {
-	Loop A_ScreenHeight / 150 {
-		MouseMove(A_ScreenWidth + A_Index * 10, A_ScreenHeight - A_Index)
-		Sleep 1
-	}
-	Sleep 100
-	Loop A_ScreenHeight / 150 {
-		MouseMove(A_ScreenWidth - A_Index * 10, A_ScreenHeight + A_Index)
-		Sleep 1
-	}
-	Sleep 100
+	MouseGetPos &xpos, &ypos
+		while getkeystate("q","P") {
+			i := 25
+			loop i {
+				Send('{WheelUp}')
+				MouseMove(xpos + Cos(DtoR(360 * (A_Index / i))) * 25,ypos + Sin(DtoR(360 * (A_Index / i))) * 100)
+				Sleep 1
+			}
+		}
 	} else SendText("q ")
 }
 x::{ ;spin
 	global toggle
 	if(toggle = 0 && (WinActive("Roblox") || WinActive("RobloxPlayerBeta") || WinActive("Roblox.exe"))) {
+	MouseGetPos &xpos, &ypos
 	while getkeystate("x","P") {
 		loop 50 {
-			MouseMove(A_Index,A_ScreenHeight / 2)
+			MouseMove(A_Index,ypos)
 			Sleep 20
 		}
 	}
@@ -29,9 +32,10 @@ x::{ ;spin
 r:: { ;spin and autoclick
 	global toggle
 	if(toggle = 0 && (WinActive("Roblox") || WinActive("RobloxPlayerBeta") || WinActive("Roblox.exe"))) {
+	MouseGetPos &xpos, &ypos
 	while getkeystate("r","P") {
 		loop 50 {
-			MouseMove(A_Index,A_ScreenHeight / 2)
+			MouseMove(A_Index,ypos)
 			loop 10 {
 			MouseClick "left"
 			MouseClick "right"
@@ -96,8 +100,9 @@ z:: { ;spam
 c:: { ;fling 
 	global toggle
 	if(toggle = 0 && (WinActive("Roblox") || WinActive("RobloxPlayerBeta") || WinActive("Roblox.exe"))) {
+	MouseGetPos &xpos, &ypos
 	loop 5 {
-		MouseMove(A_ScreenWidth / 2 - A_Index * 2,A_ScreenHeight / 2 - A_Index * 2)
+		MouseMove(xpos - A_Index * 2,ypos - A_Index * 3)
 		Sleep 10
 	}
 	Sleep 50
