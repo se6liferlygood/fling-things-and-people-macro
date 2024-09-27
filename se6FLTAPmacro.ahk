@@ -1,11 +1,9 @@
-global toggle := 0
 A_MaxHotkeysPerInterval := 1000000
 DtoR(x) { ;degrees to radians 
 	return x * (3.14/180)
 }
 q::{ ;smash
-	global toggle
-	if(toggle = 0 && (WinActive("Roblox") || WinActive("RobloxPlayerBeta") || WinActive("Roblox.exe"))) {
+	if(WinActive("Roblox") || WinActive("RobloxPlayerBeta") || WinActive("Roblox.exe")) {
 	MouseGetPos &xpos, &ypos
 		while getkeystate("q","P") {
 			i := 25
@@ -15,11 +13,10 @@ q::{ ;smash
 				Sleep 1
 			}
 		}
-	} else SendText("q ")
+	} else SendText("q")
 }
 x::{ ;spin
-	global toggle
-	if(toggle = 0 && (WinActive("Roblox") || WinActive("RobloxPlayerBeta") || WinActive("Roblox.exe"))) {
+	if(WinActive("Roblox") || WinActive("RobloxPlayerBeta") || WinActive("Roblox.exe")) {
 	MouseGetPos &xpos, &ypos
 	while getkeystate("x","P") {
 		loop 50 {
@@ -27,11 +24,10 @@ x::{ ;spin
 			Sleep 20
 		}
 	}
-	} else SendText("x ")
+	} else SendText("x")
 }
 r:: { ;spin and autoclick
-	global toggle
-	if(toggle = 0 && (WinActive("Roblox") || WinActive("RobloxPlayerBeta") || WinActive("Roblox.exe"))) {
+	if(WinActive("Roblox") || WinActive("RobloxPlayerBeta") || WinActive("Roblox.exe")) {
 	MouseGetPos &xpos, &ypos
 	while getkeystate("r","P") {
 		loop 50 {
@@ -43,11 +39,10 @@ r:: { ;spin and autoclick
 			Sleep 25
 		}
 	}
-	} else SendText("r ")
+	} else SendText("r")
 }
 f:: { ;;auto clicker
-	global toggle
-	if(toggle = 0 && (WinActive("Roblox") || WinActive("RobloxPlayerBeta") || WinActive("Roblox.exe"))) {
+	if(WinActive("Roblox") || WinActive("RobloxPlayerBeta") || WinActive("Roblox.exe")) {
 	while getkeystate("f","P") {
 		loop 10 {
 			MouseClick "left"
@@ -55,21 +50,28 @@ f:: { ;;auto clicker
 		}
 		Sleep 1
 	}
-	} else SendText("f ")
+	} else SendText("f")
 }
-^p:: { ;maco toggle
-	global toggle
-	if(toggle = 0 && (WinActive("Roblox") || WinActive("RobloxPlayerBeta") || WinActive("Roblox.exe"))) {
-		toggle := 1
-		MsgBox("MACRO PAUSED")
+#SuspendExempt
+
+^p:: { 
+	Suspend
+	if(A_IsSuspended) {
+		MsgBox("MACRO PAUSED!`n`n`nPRESS CONTROL P TO UNPAUSE!`n`nYOU CAN PRESS ENTER INSTEAD OF CLICKING OK!")
 	} else {
-		toggle := 0
-		MsgBox("MACRO UNPAUSED")
+		MsgBox("MACRO UNPAUSED!`n`n`nPRESS CONTROL P TO PAUSE!`n`nYOU CAN PRESS ENTER INSTEAD OF CLICKING OK!")
 	}
 }
+tutorial() {
+	MsgBox("TUTORIAL!`n`n`nPRESS CONTROL T TO VIEW TUTORIAL!`n`n`nKEYS ON ENGLISH KEYBOARD LAYOUT!`n`n`nhold q to smash whatever your holding into the ground`n`nhold x to spin around whatever your holding then let go when you stop holding`n`npress c to fling away whoever you are holding`n`nhold r to spin and autoclick and push`n`nhold f for autoclick and push`n`ncontrol p to pause/unpause macro`n`nhold z to spam chat noises`n`n\ to exit macro`n`n`nYOU CAN PRESS ENTER INSTEAD OF CLICKING OK")
+}
+^t:: { ;TUTORIAL
+	tutorial()
+}
+
+#SuspendExempt false
 z:: { ;spam
-	global toggle
-	if(toggle = 0 && (WinActive("Roblox") || WinActive("RobloxPlayerBeta") || WinActive("Roblox.exe"))) {
+	if(WinActive("Roblox") || WinActive("RobloxPlayerBeta") || WinActive("Roblox.exe")) {
 	while getkeystate("z","P") {
 		loop 5 {
 			Send("/")
@@ -95,11 +97,10 @@ z:: { ;spam
 			Sleep 25
 		}
 	}
-	} else SendText("z ")
+	} else SendText("z")
 }
 c:: { ;fling 
-	global toggle
-	if(toggle = 0 && (WinActive("Roblox") || WinActive("RobloxPlayerBeta") || WinActive("Roblox.exe"))) {
+	if(WinActive("Roblox") || WinActive("RobloxPlayerBeta") || WinActive("Roblox.exe")) {
 	MouseGetPos &xpos, &ypos
 	loop 5 {
 		MouseMove(xpos - A_Index * 2,ypos - A_Index * 3)
@@ -107,16 +108,10 @@ c:: { ;fling
 	}
 	Sleep 50
 	MouseClick "left"
-	} else SendText("c ")
+	} else SendText("c")
 }
 \:: { ;EXIT MACRO
 	MsgBox("EXITED MACRO!")
 	ExitApp
-}
-tutorial() {
-	MsgBox("TUTORIAL!`n`n`nPRESS CONTROL T TO VIEW TUTORIAL!`n`n`nKEYS ON ENGLISH KEYBOARD LAYOUT!`n`n`nhold q to smash whatever your holding into the ground`n`nhold x to spin around whatever your holding then let go when you stop holding`n`npress c to fling away whoever you are holding`n`nhold r to spin and autoclick and push`n`nhold f for autoclick and push`n`ncontrol p to pause/unpause macro`n`nhold z to spam chat noises`n`n\ to exit macro`n`n`nYOU CAN PRESS ENTER INSTEAD OF CLICKING OK")
-}
-^t:: { ;TUTORIAL
-	tutorial()
 }
 tutorial()
